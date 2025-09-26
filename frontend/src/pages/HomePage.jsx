@@ -21,7 +21,7 @@ const HomePage = () => {
       />
       {/* Your Content/Components */}
       <div className="container relative z-10 pt-8 mx-auto ">
-        <div className="w-full max-w-2xl p-6 mx-auto space-x-6">
+        <div className="w-full max-w-2xl p-6 mx-auto space-y-6">
           {/* Header Component  */}
           <Header />
           {/* AddTask Component  */}
