@@ -6,7 +6,7 @@ import {
 } from "lucide-react";
 
 import { cn } from "@/lib/utils";
-import { buttonVariants } from "@/src/components/ui/button";
+import { buttonVariants } from "./button";
 
 function Pagination({ className, ...props }) {
   return (
@@ -34,7 +34,12 @@ function PaginationItem({ ...props }) {
   return <li data-slot="pagination-item" {...props} />;
 }
 
-function PaginationLink({ className, isActive, size = "icon", ...props }) {
+function PaginationLink({
+  className,
+  isActive,
+  size = "icon",
+  ...props
+}) {
   return (
     <a
       aria-current={isActive ? "page" : undefined}
@@ -85,7 +90,10 @@ function PaginationEllipsis({ className, ...props }) {
     <span
       aria-hidden
       data-slot="pagination-ellipsis"
-      className={cn("flex size-9 items-center justify-center", className)}
+      className={cn(
+        "flex size-9 items-center justify-center",
+        className
+      )}
       {...props}
     >
       <MoreHorizontalIcon className="size-4" />
