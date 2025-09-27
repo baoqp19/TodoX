@@ -1,12 +1,48 @@
 import Task from "../models/Task.js";
 
 export const getAllTasks = async (req, res) => {
-  try {
-    // const tasks = await Task.find().sort({ createdAt: -1 }); // -1 replace "asc" or "desc" sắp xếp từ dưới lên trên
-    const result = await Task.aggregate([
-      // { $match: query },
+  const { filter = "today" } = req.query;
+  const now = new Date();
+  let startDate;
 
-      // cho chạy nhiều pipeline song song trả về 1 document
+  switch (filter) {
+    case "today": {
+      startDate = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        now.getDate()
+      ); // 2025-08-24 00:00
+      break;
+    }
+    case "week": {
+      const mondayDate =
+        now.getDate() -
+        (now.getDay() - 1) -
+        (now.getDay() === 0 ? 7 : 0);
+      startDate = new Date(
+        now.getFullYear(),
+        now.getMonth(),
+        mondayDate
+      );
+      break;
+    }
+    case "month": {
+      startDate = new Date(now.getFullYear(), now.getMonth(), 1);
+      break;
+    }
+    case "all":
+    default: {
+      startDate = null;
+    }
+  }
+
+  const query = startDate ? { createdAt: { $gte: startDate } } : {};
+  console.log("filter:", filter);
+  console.log("query:", query);
+
+  try {
+    const result = await Task.aggregate([
+      { $match: query },
       {
         $facet: {
           tasks: [{ $sort: { createdAt: -1 } }],
@@ -28,8 +64,8 @@ export const getAllTasks = async (req, res) => {
 
     res.status(200).json({ tasks, activeCount, completeCount });
   } catch (error) {
-    console.error("Lỗi khi lấy tất cả nhiệm vụ:", error);
-    res.status(500).json({ message: "Lỗi khi lấy tất cả nhiệm vụ." });
+    console.error("Lỗi khi gọi getAllTasks", error);
+    res.status(500).json({ message: "Lỗi hệ thống" });
   }
 };
 
