@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import StatusAndFilters from "@/components/StatusAndFilters";
 import TaskList from "@/components/TaskList";
 import TaskListPagination from "@/components/TaskListPagination";
+import api from "@/lib/axios";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -22,7 +23,7 @@ const HomePage = () => {
   // logic
   const fetchTasks = async () => {
     try {
-      const res = await axios.get("http://localhost:5001/api/tasks");
+      const res = await api.get("/tasks");
       setTaskBuffer(res.data.tasks);
       setActiveTaskCount(res.data.activeCount);
       setCompleteTaskCount(res.data.completeCount);
@@ -45,6 +46,10 @@ const HomePage = () => {
     }
   });
 
+  const handleNewTaskAdded = () => {
+    fetchTasks();
+  };
+
   return (
     <div className="min-h-screen w-full bg-[#fefcff] relative">
       {/* Dreamy Sky Pink Glow */}
@@ -62,7 +67,7 @@ const HomePage = () => {
           {/* Header Component  */}
           <Header />
           {/* AddTask Component  */}
-          <AddTask />
+          <AddTask handleNewTaskAdded={handleNewTaskAdded} />
           {/* thống kê và Bộ lọc  */}
           <StatusAndFilters
             filter={filter}
