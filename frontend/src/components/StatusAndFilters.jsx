@@ -30,7 +30,7 @@ const StatusAndFilters = ({
 
       {/* phần filter */}
       <div className="flex flex-col gap-2 sm:flex-row">
-        {Object.keys(FilterType).map((type) => (
+        {Object.keys(FilterType).map((type) => (   // chuyển sang key rồi có thể map được
           <Button
             key={type}
             variant={filter === type ? "gradient" : "ghost"}

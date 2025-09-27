@@ -10,14 +10,16 @@ import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const HomePage = () => {
-  const [taskBufffer, setTaskBuffer] = useState([]);
+  const [taskBuffer, setTaskBuffer] = useState([]);
   const [activeTaskCount, setActiveTaskCount] = useState(0);
   const [completeTaskCount, setCompleteTaskCount] = useState(0);
+  const [filter, setFilter] = useState("all");
 
   useEffect(() => {
     fetchTasks();
   }, []);
 
+  // logic
   const fetchTasks = async () => {
     try {
       const res = await axios.get("http://localhost:5001/api/tasks");
@@ -30,6 +32,19 @@ const HomePage = () => {
       toast.error("Lỗi khi lấy tất cả tasks");
     }
   };
+
+  // biến
+  const filteredTasks = taskBuffer.filter((task) => {
+    switch (filter) {
+      case "active":
+        return task.status === "active";
+      case "completed":
+        return task.status === "complete";
+      default:
+        return true;
+    }
+  });
+
   return (
     <div className="min-h-screen w-full bg-[#fefcff] relative">
       {/* Dreamy Sky Pink Glow */}
@@ -50,11 +65,13 @@ const HomePage = () => {
           <AddTask />
           {/* thống kê và Bộ lọc  */}
           <StatusAndFilters
+            filter={filter}
+            setFilter={setFilter}
             activeTasksCount={activeTaskCount}
             completedTasksCount={completeTaskCount}
           />
           {/* TaskList Component  */}
-          <TaskList filteredTasks={taskBufffer} />
+          <TaskList filteredTasks={filteredTasks} />
           {/* Phân trang  */}
           <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
             <TaskListPagination />
