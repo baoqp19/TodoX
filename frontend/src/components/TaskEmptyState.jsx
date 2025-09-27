@@ -23,9 +23,7 @@ const TaskEmptyState = ({ filter }) => {
             {filter === "all"
               ? "Thêm nhiệm vụ đầu tiên vào để bắt đầu"
               : `Chuyển sang "tất cả" để thấy những nhiệm vụ ${
-                  filter === "active"
-                    ? "đã hoàn thành"
-                    : "đang làm."
+                  filter === "active" ? "đã hoàn thành" : "đang làm."
                 }`}
           </p>
         </div>

@@ -45,24 +45,23 @@ export const createTask = async (req, res) => {
     res.status(500).json({ message: "Lỗi khi tạo nhiệm vụ." });
   }
 };
-
 export const updateTask = async (req, res) => {
   try {
     const { title, status, completed } = req.body;
+
     const updatedTask = await Task.findByIdAndUpdate(
       req.params.id,
-      {
-        title,
-        status,
-        completed,
-      },
-      { new: true } // update xong trả về bản mới
+      { title, status, completed },
+      { new: true } // trả về bản mới sau update
     );
+
     if (!updatedTask) {
       return res
         .status(404)
         .json({ message: "Nhiệm vụ không tìm thấy." });
     }
+
+    res.status(200).json(updatedTask);
   } catch (error) {
     console.error("Lỗi khi cập nhật nhiệm vụ:", error);
     res.status(500).json({ message: "Lỗi khi cập nhật nhiệm vụ." });
