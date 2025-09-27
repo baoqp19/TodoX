@@ -4,6 +4,8 @@
 @custom-variant dark (&:is(.dark *));
 @config "../tailwind.config.js";
 
+/* định nghĩa màu cho file tailwind.config */
+
 @layer base {
   :root {
     /* Modern todo app color palette */
@@ -73,7 +75,8 @@
 
     /* Transitions */
     --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-    --transition-bounce: all 0.5s cubic-bezier(0.34, 1.56, 0.64, 1);
+    --transition-bounce: all 0.5s
+      cubic-bezier(0.34, 1.56, 0.64, 1);
 
     --radius: 0.5rem;
 

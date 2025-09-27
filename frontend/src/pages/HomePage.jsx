@@ -5,9 +5,29 @@ import Header from "@/components/Header";
 import StatusAndFilters from "@/components/StatusAndFilters";
 import TaskList from "@/components/TaskList";
 import TaskListPagination from "@/components/TaskListPagination";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { toast } from "sonner";
 
 const HomePage = () => {
+  const [taskBufffer, setTaskBuffer] = useState([]);
+
+  useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = async () => {
+    try {
+      const res = await fetch(
+        "http://localhost:5001/api/tasks"
+      );
+      const data = await res.json();
+      setTaskBuffer(data);
+      console.log(data);
+    } catch (error) {
+      console.error("Lỗi khi lấy tất cả tasks:", error);
+      toast.error("Lỗi khi lấy tất cả tasks");
+    }
+  };
   return (
     <div className="min-h-screen w-full bg-[#fefcff] relative">
       {/* Dreamy Sky Pink Glow */}
