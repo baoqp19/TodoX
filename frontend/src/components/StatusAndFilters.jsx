@@ -5,8 +5,8 @@ import { FilterType } from "@/lib/data";
 import { Button } from "./ui/button";
 
 const StatusAndFilters = ({
-  completedTasksCount = 0,
   activeTasksCount = 0,
+  completedTasksCount = 0,
   filter = "all",
   setFilter,
 }) => {

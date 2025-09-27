@@ -5,11 +5,14 @@ import Header from "@/components/Header";
 import StatusAndFilters from "@/components/StatusAndFilters";
 import TaskList from "@/components/TaskList";
 import TaskListPagination from "@/components/TaskListPagination";
+import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const HomePage = () => {
   const [taskBufffer, setTaskBuffer] = useState([]);
+  const [activeTaskCount, setActiveTaskCount] = useState(0);
+  const [completeTaskCount, setCompleteTaskCount] = useState(0);
 
   useEffect(() => {
     fetchTasks();
@@ -17,12 +20,11 @@ const HomePage = () => {
 
   const fetchTasks = async () => {
     try {
-      const res = await fetch(
-        "http://localhost:5001/api/tasks"
-      );
-      const data = await res.json();
-      setTaskBuffer(data);
-      console.log(data);
+      const res = await axios.get("http://localhost:5001/api/tasks");
+      setTaskBuffer(res.data.tasks);
+      setActiveTaskCount(res.data.activeCount);
+      setCompleteTaskCount(res.data.completeCount);
+      console.log(res.data);
     } catch (error) {
       console.error("Lỗi khi lấy tất cả tasks:", error);
       toast.error("Lỗi khi lấy tất cả tasks");
@@ -47,16 +49,22 @@ const HomePage = () => {
           {/* AddTask Component  */}
           <AddTask />
           {/* thống kê và Bộ lọc  */}
-          <StatusAndFilters />
+          <StatusAndFilters
+            activeTasksCount={activeTaskCount}
+            completedTasksCount={completeTaskCount}
+          />
           {/* TaskList Component  */}
-          <TaskList />
+          <TaskList filteredTasks={taskBufffer} />
           {/* Phân trang  */}
           <div className="flex flex-col items-center justify-center gap-6 sm:flex-row">
             <TaskListPagination />
             <DateTimeFilter />
           </div>
           {/* Footer Component  */}
-          <Footer />
+          <Footer
+            activeTasksCount={activeTaskCount}
+            completedTasksCount={completeTaskCount}
+          />
         </div>
       </div>
     </div>
