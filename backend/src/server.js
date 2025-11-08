@@ -8,7 +8,9 @@ import path from "path";
 dotenv.config();
 
 const PORT = process.env.PORT || 5001;
+
 const __dirname = path.resolve();
+console.log(__dirname);
 
 const app = express();
 
@@ -21,7 +23,7 @@ if (process.env.NODE_ENV !== "development") {
 app.use("/api/tasks", taskRoute);
 
 if (process.env.NODE_ENV === "production") {
-  app.use(express.static(path.join(__dirname, "../frontend/dist")));
+  app.use(express.static(path.join(__dirname, "../frontend/dist"))); // lùi 1 cấp rồi truy cập 
 
   app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "../frontend/dist/index.html"));
