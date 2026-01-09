@@ -4,10 +4,10 @@ import { Button } from "./ui/button";
 import { Plus } from "lucide-react";
 import { Input } from "./ui/input";
 import { toast } from "sonner";
-import axios from "axios";
 import api from "@/lib/axios";
 
 const AddTask = ({ handleNewTaskAdded }) => {
+   
   const [newTaskTitle, setNewTaskTitle] = useState("");
   
   const addTask = async () => {
@@ -20,7 +20,6 @@ const AddTask = ({ handleNewTaskAdded }) => {
         console.error("Lỗi xảy ra khi thêm task.", error);
         toast.error("Lỗi xảy ra khi thêm nhiệm vụ mới.");
       }
-
       setNewTaskTitle("");
     } else {
       toast.error("Bạn cần nhập nội dung của nhiệm vụ.");

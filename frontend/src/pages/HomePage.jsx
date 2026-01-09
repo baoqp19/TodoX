@@ -80,6 +80,7 @@ const HomePage = () => {
   if (visibleTasks.length === 0) {
     handlePrev();
   }
+  
   // tính tổng số trang
   const totalPages = Math.ceil(
     filteredTasks.length / visibleTaskLimit

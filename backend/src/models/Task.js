@@ -17,7 +17,7 @@ const taskSchema = new mongoose.Schema(
       default: null,
     },
   },
-  { timestamps: true }
+  { timestamps: true } // tự động thêm createdAt và updatedAt
 );
 
 const Task = mongoose.model("Task", taskSchema);

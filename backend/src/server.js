@@ -14,12 +14,13 @@ console.log(__dirname);
 
 const app = express();
 
-// middlewares
-app.use(express.json()); // middleware để parse json
+// đi qua phải json and convert sang object 
+app.use(express.json()); // 
 
 if (process.env.NODE_ENV !== "development") { // trong env là production nên chạy local thì nó chạy vào 
   app.use(cors({ origin: "http://localhost:5173" })); // cho phép truy cập từ frontend{
 }
+
 app.use("/api/tasks", taskRoute);
 
 if (process.env.NODE_ENV === "production") {
