@@ -12,6 +12,7 @@ import React, { use, useEffect, useState } from "react";
 import { toast } from "sonner";
 
 const HomePage = () => {
+  
   const [taskBuffer, setTaskBuffer] = useState([]);
   const [activeTaskCount, setActiveTaskCount] = useState(0);
   const [completeTaskCount, setCompleteTaskCount] = useState(0);

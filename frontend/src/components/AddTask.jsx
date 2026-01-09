@@ -9,6 +9,7 @@ import api from "@/lib/axios";
 
 const AddTask = ({ handleNewTaskAdded }) => {
   const [newTaskTitle, setNewTaskTitle] = useState("");
+  
   const addTask = async () => {
     if (newTaskTitle.trim()) {
       try {
@@ -31,6 +32,7 @@ const AddTask = ({ handleNewTaskAdded }) => {
       addTask();
     }
   };
+  
   return (
     <Card className="p-6 border-0 bg-gradient-card shadow-custom-lg">
       <div className="flex flex-col gap-3 sm:flex-row">

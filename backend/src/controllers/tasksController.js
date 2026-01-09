@@ -81,6 +81,7 @@ export const createTask = async (req, res) => {
     res.status(500).json({ message: "Lỗi khi tạo nhiệm vụ." });
   }
 };
+
 export const updateTask = async (req, res) => {
   try {
     const { title, status, completed } = req.body;
