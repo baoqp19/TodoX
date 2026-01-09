@@ -13,3 +13,10 @@
     npm run dev    
 ```
 
+## 4. Add library   
+```bash
+    npm install react-router sonner axios lucide-react 
+    # router, notification, fetch api, icon    
+```
+
+
